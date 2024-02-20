@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,34 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'welcome']);
 
 // Route::get('/user/{name}', function ($name){
 //     return 'Nama saya '.$name;
 // });
 
 
-Route::get('/posts/{post}/comments/{comment}', function($postId, $commentId){
-    return 'Pos ke-'.$postId." Komentar ke-:".$commentId;
-});
+Route::get('/posts/{post}/comments/{comment}',[WelcomeController::class,'postComment']);
 
 
-Route::get('/articles/{id}', function($id){
-    return 'Halaman Artikel dengan ID - '.$id;
-});
+Route::get('/articles/{id}', [WelcomeController::class,'article']);
 
 
 Route::get('/goldarah/{gol?}', function($gol='O'){
     return 'Golongan Darah Anda - '.$gol;
 });
 
-Route::get('/user/{name?}', function($name='John'){
-    return 'Nama saya '.$name;
-});
+Route::get('/user/{name?}', [WelcomeController::class,'DisName']);
 
 Route::get('/user/profile', function(){
  return 'User/profile berubah menjadi profile ';
 })->name('profile');
+
+Route::get('/hello', [WelcomeController::class,'hello']);
+
+Route::get('/articles/{id}', [ArticleController::class,'articles']);
+
+Route::resource('photos', PhotoController::class)->only(['index','show']);
+
+Route::resource('photos', PhotoController::class)->except(['create','store','update','destroy']);
 
