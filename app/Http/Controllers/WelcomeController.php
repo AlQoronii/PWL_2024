@@ -23,4 +23,11 @@ class WelcomeController extends Controller
     public function DisName($name){
         return 'Nama saya '.$name;
     }
+
+    public function greeting(){
+        return view('blog.hello')
+        >with('name','Fathurrozak')
+                ->with('occupation','Astronaut');
+    }
+
 }
